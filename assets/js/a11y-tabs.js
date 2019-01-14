@@ -196,13 +196,8 @@ const tabs = (function tabsComponentIIFE() {
     }
   }
 
-  function getTabComponents() {
-    return tabInstances;
-  }
-
   return {
     create: createTabComponent,
-    destroy: destroyTabComponent,
-    getComponents: getTabComponents
+    destroy: destroyTabComponent
   }
 })();
