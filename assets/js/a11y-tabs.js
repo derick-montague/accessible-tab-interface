@@ -1,4 +1,4 @@
-const tabs = (function tabsComponentIIFE() {
+const a11yTabs = (function tabsComponentIIFE(global, document) {
   'use strict';
 
   const tabInstances = new WeakMap();
@@ -8,23 +8,31 @@ const tabs = (function tabsComponentIIFE() {
    * @constructor
    * @param {DOM Node} element
    */
-  const TabComponent = function (element, options) {
+  const TabComponent = function TabComponent(element, options) {
     if (!element || !element.nodeType) {
-      throw new Error('The DOM element was not found when creating the tab component');
+      throw new Error(
+        'The DOM element was not found when creating the tab component'
+      );
     }
     const defaults = {
       tabList: '.tab-list',
       tabItem: '.tab-item',
       tabLink: '.tab-link',
       tabPanel: '.tab-panel'
-    }
+    };
     this.options = Object.assign(defaults, options);
 
     this.element = element;
     this.tabList = element.querySelector(this.options.tabList);
-    this.tabItems = [].slice.call(this.tabList.querySelectorAll(this.options.tabItem));
-    this.tabLinks = [].slice.call(this.tabList.querySelectorAll(this.options.tabLink));
-    this.tabPanels = [].slice.call(element.querySelectorAll(this.options.tabPanel));
+    this.tabItems = [].slice.call(
+      this.tabList.querySelectorAll(this.options.tabItem)
+    );
+    this.tabLinks = [].slice.call(
+      this.tabList.querySelectorAll(this.options.tabLink)
+    );
+    this.tabPanels = [].slice.call(
+      element.querySelectorAll(this.options.tabPanel)
+    );
 
     this.currentIndex = 0;
 
@@ -64,20 +72,24 @@ const tabs = (function tabsComponentIIFE() {
     this.tabList.addEventListener('keydown', this.eventCallback, false);
 
     tabInstances.set(this.element, this);
-  }
-
+  };
 
   TabComponent.prototype = {
+    /**
+     * Event handler for all tab interactions
+     * @param {number} index - Index of the tab being activiated
+     * @param {string} direction -
+     */
     handleTabInteraction: function handleTabInteraction(index, direction) {
       const currentIndex = this.currentIndex;
       let newIndex = index;
 
-      // Click handler does not pass direction
+      // The click event does not pass in a direction. This is for keyboard support
       if (direction) {
         if (direction === 37) {
           newIndex = index - 1;
         } else {
-          newIndex = index + 1
+          newIndex = index + 1;
         }
       }
 
@@ -107,12 +119,16 @@ const tabs = (function tabsComponentIIFE() {
       return this;
     },
 
+    /**
+     * Set tab panel focus
+     * @param {number} index - Tab panel index to receive focus
+     */
     handleTabpanelFocus: function handleTabPanelFocus(index) {
       this.tabPanels[index].focus();
 
       return this;
     }
-  }
+  };
 
   /**
    * Creates or returns existing component
@@ -129,7 +145,9 @@ const tabs = (function tabsComponentIIFE() {
    */
   function destroyTabComponent(element) {
     if (!element || !element.nodeType) {
-      throw new Error('The DOM element was not found when deleting the tab component');
+      throw new Error(
+        'The DOM element was not found when deleting the tab component'
+      );
     }
 
     let component = tabInstances.get(element);
@@ -176,7 +194,10 @@ const tabs = (function tabsComponentIIFE() {
   function handleEvents(event) {
     if (event.type === 'click') {
       event.preventDefault();
-      TabComponent.prototype.handleTabInteraction.call(this, this.tabLinks.indexOf(event.target));
+      TabComponent.prototype.handleTabInteraction.call(
+        this,
+        this.tabLinks.indexOf(event.target)
+      );
     }
 
     if (event.type === 'keydown') {
@@ -185,7 +206,11 @@ const tabs = (function tabsComponentIIFE() {
       // Left and right arrows
       if (event.which === 37 || event.which === 39) {
         event.preventDefault();
-        TabComponent.prototype.handleTabInteraction.call(this, index, event.which);
+        TabComponent.prototype.handleTabInteraction.call(
+          this,
+          index,
+          event.which
+        );
       }
 
       // Down arrow
@@ -199,5 +224,5 @@ const tabs = (function tabsComponentIIFE() {
   return {
     create: createTabComponent,
     destroy: destroyTabComponent
-  }
-})();
+  };
+})(window, document);
