@@ -1,4 +1,4 @@
-const a11yTabs = (function tabsComponentIIFE(global, document) {
+window.a11yTabs = (function tabsComponentIIFE(global, document) {
   'use strict';
 
   const tabInstances = new WeakMap();
