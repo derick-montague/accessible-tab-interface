@@ -2,7 +2,7 @@
 
 This is an accessible tab solution based on guidelines documented by Heydon Pickering on the [Inclusive Components Pattern Library](https://inclusive-components.design/tabbed-interfaces/)
 
-This is one of the many great patterns that was once shared on the [a11y project website's list of patterns](https://a11yproject.com/patterns).
+This was once part of a great list of patterns shared on the [a11y project website's list of patterns](https://a11yproject.com/patterns).
 
 ## Controls
 
