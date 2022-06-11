@@ -4,7 +4,7 @@ This is an accessible tab solution based on guidelines documented by Heydon Pick
 
 This was once part of a great list of patterns shared on the [a11y project website's list of patterns](https://a11yproject.com/patterns). The A11Y project is now directing people to refer to the [WAI-ARIA Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/). 
 
-A demo of this component is avaialble in [CodePen](https://codepen.io/BeyondHyper/pen/xZXXzj)
+A demo of this component is available in [CodePen](https://codepen.io/BeyondHyper/pen/xZXXzj)
 
 ## Controls
 
